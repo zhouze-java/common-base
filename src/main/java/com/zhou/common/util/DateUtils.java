@@ -317,4 +317,37 @@ public class DateUtils {
 	public static LocalDate timestampToLocalDate(Long timestamp){
 		return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.ofHours(8)).toLocalDate();
 	}
+
+	/**
+	 * 判断时间是否在时间段内
+	 * @param nowTime
+	 * @param beginTime
+	 * @param endTime
+	 * @return
+	 */
+	public static boolean belongCalendar(Date nowTime, String beginTime, String endTime) {
+		// 设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+		Date now =null;
+		Date beginTimeDate = null;
+		Date endTimeDate = null;
+		try {
+			now = df.parse(df.format(nowTime));
+			beginTimeDate = df.parse(beginTime);
+			endTimeDate = df.parse(endTime);
+		} catch (Exception e) {
+			return false;
+		}
+
+		Calendar date = Calendar.getInstance();
+		date.setTime(now);
+
+		Calendar begin = Calendar.getInstance();
+		begin.setTime(beginTimeDate);
+
+		Calendar end = Calendar.getInstance();
+		end.setTime(endTimeDate);
+
+		return date.after(begin) && date.before(end);
+	}
 }
