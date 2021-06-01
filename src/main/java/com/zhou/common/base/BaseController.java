@@ -1,7 +1,6 @@
 package com.zhou.common.base;
 
 import com.zhou.common.support.aware.WebSupportAware;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

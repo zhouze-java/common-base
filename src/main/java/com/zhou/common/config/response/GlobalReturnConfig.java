@@ -1,14 +1,15 @@
-package com.zhou.common.config.exception;
+package com.zhou.common.config.response;
 
 import com.zhou.common.model.Result;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -16,15 +17,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date Create in 9:52 2021/6/1
  * @Description
  */
-@EnableWebMvc
-@Configuration
+//@EnableWebMvc
+//@Configuration
+@RequiredArgsConstructor
 public class GlobalReturnConfig {
 
-    @RestControllerAdvice
+    @RestControllerAdvice(basePackages = "com.xinzhouqi.session.record.server.controller")
     static class ResultResponseAdvice implements ResponseBodyAdvice<Object> {
         @Override
         public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-            return true;
+            return !methodParameter.hasMethodAnnotation(IgnoreResponseBody.class);
         }
 
         @Override

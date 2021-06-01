@@ -44,13 +44,13 @@ public class BaseEntity {
      */
     @JsonIgnore
     @TableField(value = "create_user", fill = FieldFill.INSERT)
-    private Long createUser;
+    protected Long createUser;
 
     /**
      * 更新人
      */
     @JsonIgnore
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
-    private Long updateUser;
+    protected Long updateUser;
 
 }
