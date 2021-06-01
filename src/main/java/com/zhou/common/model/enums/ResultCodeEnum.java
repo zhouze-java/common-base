@@ -1,5 +1,7 @@
 package com.zhou.common.model.enums;
 
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+
 /**
  * @author 周泽
  * @date Create in 17:06 2021/5/25
@@ -11,6 +13,11 @@ public enum  ResultCodeEnum {
      * 成功
      */
     SUCCESS("成功", 0),
+
+    /**
+     * 请求转换出错
+     */
+    BAD_REQUEST("参数转换出错", 30400),
 
     /**
      * 找不到资源
@@ -30,8 +37,22 @@ public enum  ResultCodeEnum {
     /**
      * 缺少先决条件
      */
-    PRECONDITION_REQUIRED("缺少先决条件",30428)
+    PRECONDITION_REQUIRED("缺少先决条件",30428),
 
+    /**
+     * 已经存在
+     */
+    ALREADY_EXISTS_EXCEPTION("已经存在", 30409),
+
+    /**
+     * 请求方法不支持
+     */
+    REQUEST_METHOD_NOT_SUPPORTED("请求方法不支持",30405),
+
+    /**
+     * 服务端错误
+     */
+    SERVER_ERROR("服务端错误", 30500),
     ;
 
     private final String displayName;

@@ -2,11 +2,11 @@ package com.zhou.common.config.exception;
 
 
 import com.zhou.common.exception.*;
-import com.zhou.common.model.MessageVO;
+import com.zhou.common.model.Result;
+import com.zhou.common.model.enums.ResultCodeEnum;
 import com.zhou.common.util.MessageSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -44,9 +44,9 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({HttpMessageNotReadableException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public MessageVO requestError(HttpMessageNotReadableException ex) {
+	public Result<?> requestError(HttpMessageNotReadableException ex) {
 		log.error(ex.getMessage());
-		return messageSourceService.getMessageVO("error.client.400", ex.getMessage());
+		return new Result<>(ResultCodeEnum.BAD_REQUEST.getCode(), ex.getMessage());
 	}
 	
 	/**
@@ -56,11 +56,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({ForbiddenException.class})
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	@ResponseBody
-	public MessageVO forbiddenError(ForbiddenException ex) {
+	public Result<?> forbiddenError(ForbiddenException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.403", "");
+			return new Result<>(ResultCodeEnum.FORBIDDEN.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.FORBIDDEN.getCode(), ex.getMessage());
 	}
 	
 	/**
@@ -70,11 +70,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({NotFoundException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody
-	public MessageVO notFoundError(NotFoundException ex) {
+	public Result<?> notFoundError(NotFoundException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.404", "");
+			return new Result<>(ResultCodeEnum.NOT_FOUND.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.NOT_FOUND.getCode(), ex.getMessage());
 	}
 
 	
@@ -85,11 +85,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({PreconditionRequiredException.class})
 	@ResponseStatus(HttpStatus.PRECONDITION_REQUIRED)
 	@ResponseBody
-	public MessageVO preconditionRequiredError(PreconditionRequiredException ex) {
+	public Result<?> preconditionRequiredError(PreconditionRequiredException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.428", "");
+			return new Result<>(ResultCodeEnum.PRECONDITION_REQUIRED.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.PRECONDITION_REQUIRED.getCode(),"");
 	}
 
 	/**
@@ -99,11 +99,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({BadRequestException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public MessageVO badRequestError(RuntimeException ex) {
+	public Result<?> badRequestError(RuntimeException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.400", "");
+			return new Result<>(ResultCodeEnum.BAD_REQUEST.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.BAD_REQUEST.getCode(), ex.getMessage());
 	}
 
 	/**
@@ -113,11 +113,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({UnprocessableEntityException.class})
 	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ResponseBody
-	public MessageVO unprocessableEntityError(UnprocessableEntityException ex) {
+	public Result<?> unprocessableEntityError(UnprocessableEntityException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.422", "");
+			return new Result<>(ResultCodeEnum.UNPROCESSABLE_ENTITY.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.UNPROCESSABLE_ENTITY.getCode(), ex.getMessage());
 	}
 
 	/**
@@ -128,11 +128,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({DuplicateKeyException.class})
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
-	public MessageVO duplicateKeyError(RuntimeException ex) {
+	public Result<?> duplicateKeyError(RuntimeException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.409", "");
+			return new Result<>(ResultCodeEnum.ALREADY_EXISTS_EXCEPTION.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.ALREADY_EXISTS_EXCEPTION.getCode(), ex.getMessage());
 	}
 	
 	/**
@@ -143,20 +143,19 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({AlreadyExistsException.class})
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
-	public MessageVO alreadyExistsException(AlreadyExistsException ex) {
+	public Result<?> alreadyExistsException(AlreadyExistsException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
-			return messageSourceService.getMessageVO("error.client.409", "");
+			return new Result<>(ResultCodeEnum.ALREADY_EXISTS_EXCEPTION.getCode());
 		}
-		return messageSourceService.getMessageVO(ex.getMessage(), "");
+		return new Result<>(ResultCodeEnum.ALREADY_EXISTS_EXCEPTION.getCode(), ex.getMessage());
 	}
 
 
 	@ExceptionHandler({HttpRequestMethodNotSupportedException.class})
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ResponseBody
-	public MessageVO NotSupported(HttpRequestMethodNotSupportedException e) {
-		log.error(e.getMessage());
-		return messageSourceService.getMessageVO("error.globalExceptionHandler.notSupported", "");
+	public Result<?> NotSupported(HttpRequestMethodNotSupportedException e) {
+		return new Result<>(ResultCodeEnum.REQUEST_METHOD_NOT_SUPPORTED.getCode());
 	}
 	
 	/**
@@ -167,10 +166,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler({Exception.class})
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
-	public MessageVO serverError(Exception re) {
+	public Result<?> serverError(Exception re) {
 		log.error(re.getMessage());
 		log.error("{}", re);
-		return messageSourceService.getMessageVO("error.client.500", "");
+		return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode());
+
 	}
 	
 	/**
@@ -181,7 +181,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ResponseBody
-	public MessageVO processValidationError(MethodArgumentNotValidException ex) {
+	public Result<?> processValidationError(MethodArgumentNotValidException ex) {
 		BindingResult result = ex.getBindingResult();
 		ObjectError error = result.getFieldError();
 		if(error == null){
@@ -193,11 +193,11 @@ public class GlobalExceptionHandler {
 
 
 
-	private MessageVO processFieldError(ObjectError error) {
-		MessageVO message = null;
+	private Result<?> processFieldError(ObjectError error) {
+		Result<?> result = null;
 		if (error != null) {
-			message = messageSourceService.getMessageVO(error.getDefaultMessage(), "");
+			result = new Result<>(ResultCodeEnum.UNPROCESSABLE_ENTITY.getCode(), error.getDefaultMessage());
 		}
-		return message;
+		return result;
 	}
 }
