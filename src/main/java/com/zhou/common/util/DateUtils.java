@@ -240,6 +240,16 @@ public class DateUtils {
 	}
 
 	/**
+	 * localDateTime to Date
+	 *
+	 * @param localDateTime
+	 * @return
+	 */
+	public static Date localDateTimeToDate(LocalDateTime localDateTime) {
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
 	 * localDate 转时间戳
 	 * @param localDate
 	 * @return
