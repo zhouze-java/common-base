@@ -1,7 +1,5 @@
 package com.zhou.common.model.enums;
 
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-
 /**
  * @author 周泽
  * @date Create in 17:06 2021/5/25

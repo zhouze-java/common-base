@@ -3,7 +3,6 @@ package com.zhou.common.util;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhouze
