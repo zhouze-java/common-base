@@ -42,7 +42,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({HttpMessageNotReadableException.class})
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public Result<?> requestError(HttpMessageNotReadableException ex) {
 		log.error(ex.getMessage());
@@ -54,7 +53,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({ForbiddenException.class})
-	@ResponseStatus(HttpStatus.FORBIDDEN)
 	@ResponseBody
 	public Result<?> forbiddenError(ForbiddenException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -68,7 +66,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({NotFoundException.class})
-	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody
 	public Result<?> notFoundError(NotFoundException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -83,7 +80,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({PreconditionRequiredException.class})
-	@ResponseStatus(HttpStatus.PRECONDITION_REQUIRED)
 	@ResponseBody
 	public Result<?> preconditionRequiredError(PreconditionRequiredException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -97,7 +93,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({BadRequestException.class})
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public Result<?> badRequestError(RuntimeException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -111,7 +106,6 @@ public class GlobalExceptionHandler {
 	 * @param ex
 	 */
 	@ExceptionHandler({UnprocessableEntityException.class})
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ResponseBody
 	public Result<?> unprocessableEntityError(UnprocessableEntityException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -126,7 +120,6 @@ public class GlobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler({DuplicateKeyException.class})
-	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
 	public Result<?> duplicateKeyError(RuntimeException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -141,7 +134,6 @@ public class GlobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler({AlreadyExistsException.class})
-	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
 	public Result<?> alreadyExistsException(AlreadyExistsException ex) {
 		if(StringUtils.isEmpty(ex.getMessage())){
@@ -152,7 +144,6 @@ public class GlobalExceptionHandler {
 
 
 	@ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ResponseBody
 	public Result<?> NotSupported(HttpRequestMethodNotSupportedException e) {
 		return new Result<>(ResultCodeEnum.REQUEST_METHOD_NOT_SUPPORTED.getCode());
@@ -164,7 +155,6 @@ public class GlobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler({Exception.class})
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Result<?> serverError(Exception re) {
 		log.error(re.getMessage());
@@ -179,7 +169,6 @@ public class GlobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ResponseBody
 	public Result<?> processValidationError(MethodArgumentNotValidException ex) {
 		BindingResult result = ex.getBindingResult();
