@@ -15,8 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date Create in 9:52 2021/6/1
  * @Description
  */
-//@EnableWebMvc
-//@Configuration
 @RequiredArgsConstructor
 public class GlobalReturnConfig {
 

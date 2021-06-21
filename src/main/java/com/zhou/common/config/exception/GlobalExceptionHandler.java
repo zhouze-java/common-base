@@ -145,7 +145,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({HttpRequestMethodNotSupportedException.class})
 	@ResponseBody
-	public Result<?> NotSupported(HttpRequestMethodNotSupportedException e) {
+	public Result<?> notSupported(HttpRequestMethodNotSupportedException e) {
 		return new Result<>(ResultCodeEnum.REQUEST_METHOD_NOT_SUPPORTED.getCode());
 	}
 	
