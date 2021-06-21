@@ -18,8 +18,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RequiredArgsConstructor
 public class GlobalReturnConfig {
 
-    @RestControllerAdvice(basePackages = {"com.xinzhouqi.session.record.server.controller",
-            "com.xinzhouqi.finance.web.controller","com.xinzhouqi.pay.web.controller"})
+    @RestControllerAdvice(basePackages = {
+            "com.xinzhouqi.session.record.server.controller",
+            "com.xinzhouqi.finance.web.controller",
+            "com.xinzhouqi.pay.web.controller",
+            "com.xinzhouqi.collect.server.controller"
+    })
     static class ResultResponseAdvice implements ResponseBodyAdvice<Object> {
         @Override
         public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
