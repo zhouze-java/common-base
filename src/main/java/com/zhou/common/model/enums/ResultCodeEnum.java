@@ -18,6 +18,11 @@ public enum  ResultCodeEnum {
     BAD_REQUEST("参数转换出错", 30400),
 
     /**
+     * 未登录
+     */
+    UNAUTHORIZED("未登录", 30401),
+
+    /**
      * 找不到资源
      */
     NOT_FOUND("找不到资源", 30404),

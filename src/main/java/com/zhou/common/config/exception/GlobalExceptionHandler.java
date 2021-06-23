@@ -148,6 +148,12 @@ public class GlobalExceptionHandler {
 	public Result<?> notSupported(HttpRequestMethodNotSupportedException e) {
 		return new Result<>(ResultCodeEnum.REQUEST_METHOD_NOT_SUPPORTED.getCode());
 	}
+
+	@ExceptionHandler({UnauthorizedException.class})
+	@ResponseBody
+	public Result<?> unauthorized(UnauthorizedException e) {
+		return new Result<>(ResultCodeEnum.UNAUTHORIZED.getCode());
+	}
 	
 	/**
 	 * 全局异常
