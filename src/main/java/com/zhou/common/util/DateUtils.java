@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 日期帮助类
@@ -359,5 +361,28 @@ public class DateUtils {
 		end.setTime(endTimeDate);
 
 		return date.after(begin) && date.before(end);
+	}
+	/**
+	 * 获取两个时间节点之间的月份列表
+	 * @param startDate 开始日期
+	 * @param endDate 结束日期
+	 * @return
+	 */
+	public static List<String> getMonthBetween(Date startDate, Date endDate) {
+		ArrayList<String> resultList = new ArrayList<>();
+		Calendar min = Calendar.getInstance();
+		Calendar max = Calendar.getInstance();
+		min.setTime(startDate);
+		min.set(min.get(Calendar.YEAR), min.get(Calendar.MONTH), 1);
+
+		max.setTime(endDate);
+		max.set(max.get(Calendar.YEAR), max.get(Calendar.MONTH), 2);
+
+		Calendar curr = min;
+		while (curr.before(max)) {
+			resultList.add(shortSdf.format(curr.getTime()));
+			curr.add(Calendar.MONTH, 1);
+		}
+		return resultList;
 	}
 }
