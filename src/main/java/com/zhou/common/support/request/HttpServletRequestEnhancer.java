@@ -18,7 +18,7 @@ public class HttpServletRequestEnhancer {
      * @param key
      * @param value
      */
-    private static void reflectSetHeaderParam(HttpServletRequest request,String key,String value){
+    public static void reflectSetHeaderParam(HttpServletRequest request,String key,String value){
         Class<? extends HttpServletRequest> requestClass = request.getClass();
         System.out.println("request实现类="+requestClass.getName());
         try {
