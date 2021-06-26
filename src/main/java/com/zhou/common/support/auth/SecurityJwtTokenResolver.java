@@ -48,6 +48,8 @@ public class SecurityJwtTokenResolver {
         // 获取配置中的 jwtTokenSignKey
         Claims claims = Jwts.parser().setSigningKey(jwtTokenSignKey.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(jwtToken).getBody();
 
+        // TODO 处理一下token过期的情况
+
         return Long.parseLong(String.valueOf(claims.get("userId")));
     }
 

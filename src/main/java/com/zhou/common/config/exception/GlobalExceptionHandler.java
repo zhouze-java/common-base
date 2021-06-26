@@ -4,11 +4,9 @@ package com.zhou.common.config.exception;
 import com.zhou.common.exception.*;
 import com.zhou.common.model.Result;
 import com.zhou.common.model.enums.ResultCodeEnum;
-import com.zhou.common.util.MessageSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -34,8 +31,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
-	
-	private final MessageSourceService messageSourceService;
 
 	/**
 	 * 请求参数转换出错
@@ -85,7 +80,7 @@ public class GlobalExceptionHandler {
 		if(StringUtils.isEmpty(ex.getMessage())){
 			return new Result<>(ResultCodeEnum.PRECONDITION_REQUIRED.getCode());
 		}
-		return new Result<>(ResultCodeEnum.PRECONDITION_REQUIRED.getCode(),"");
+		return new Result<>(ResultCodeEnum.PRECONDITION_REQUIRED.getCode(), ex.getMessage());
 	}
 
 	/**
@@ -142,6 +137,14 @@ public class GlobalExceptionHandler {
 		return new Result<>(ResultCodeEnum.ALREADY_EXISTS_EXCEPTION.getCode(), ex.getMessage());
 	}
 
+	@ExceptionHandler({ServerErrorException.class})
+	@ResponseBody
+	public Result<?> serverErrorException(ServerErrorException ex) {
+		if(StringUtils.isEmpty(ex.getMessage())){
+			return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode());
+		}
+		return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode(), ex.getMessage());
+	}
 
 	@ExceptionHandler({HttpRequestMethodNotSupportedException.class})
 	@ResponseBody
