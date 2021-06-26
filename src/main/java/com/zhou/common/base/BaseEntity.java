@@ -3,6 +3,7 @@ package com.zhou.common.base;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author 周泽
@@ -52,5 +53,35 @@ public class BaseEntity {
     @JsonIgnore
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     protected Long updateUser;
+
+
+    public void fillUserIdAndTimeWhenInsert() {
+        this.setCreatedAt(System.currentTimeMillis());
+        this.setUpdatedAt(System.currentTimeMillis());
+        this.setDel(Boolean.FALSE);
+        this.setUpdateUser(0L);
+        this.setCreateUser(0L);
+    }
+
+
+    public void fillUserIdAndTimeWhenInsert(Long userId) {
+        this.setCreatedAt(System.currentTimeMillis());
+        this.setUpdatedAt(System.currentTimeMillis());
+        this.setDel(Boolean.FALSE);
+        this.setUpdateUser(userId);
+        this.setCreateUser(userId);
+    }
+
+    public void fillUserIdAndTimeWhenUpdate() {
+        this.setUpdatedAt(System.currentTimeMillis());
+        this.setDel(Boolean.FALSE);
+        this.setUpdateUser(0L);
+    }
+
+    public void fillUserIdAndTimeWhenUpdate(Long userId) {
+        this.setUpdatedAt(System.currentTimeMillis());
+        this.setDel(Boolean.FALSE);
+        this.setUpdateUser(userId);
+    }
 
 }
