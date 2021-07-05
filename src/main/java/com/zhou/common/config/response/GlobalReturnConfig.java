@@ -18,7 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RequiredArgsConstructor
 public class GlobalReturnConfig {
 
-    @RestControllerAdvice(basePackages = {
+    @RestControllerAdvice(
+            annotations = GlobalResponseBody.class,
+            basePackages = {
             "com.xinzhouqi.session.record.server.controller",
             "com.xinzhouqi.finance.web.controller",
             "com.xinzhouqi.pay.web.controller",
