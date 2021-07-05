@@ -146,6 +146,15 @@ public class GlobalExceptionHandler {
 		return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode(), ex.getMessage());
 	}
 
+	@ExceptionHandler({ExternalApiException.class})
+	@ResponseBody
+	public Result<?> externalApiException(ExternalApiException ex) {
+		if(StringUtils.isEmpty(ex.getMessage())){
+			return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode());
+		}
+		return new Result<>(ResultCodeEnum.SERVER_ERROR.getCode(), ex.getMessage());
+	}
+
 	@ExceptionHandler({HttpRequestMethodNotSupportedException.class})
 	@ResponseBody
 	public Result<?> notSupported(HttpRequestMethodNotSupportedException e) {
