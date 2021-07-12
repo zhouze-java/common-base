@@ -24,7 +24,6 @@ public class GlobalReturnConfig {
             "com.xinzhouqi.session.record.server.controller",
             "com.xinzhouqi.finance.web.controller",
             "com.xinzhouqi.pay.web.controller",
-            "com.xinzhouqi.collect.server.controller",
             "com.xinzhouqi.charge.server.controller"
     })
     static class ResultResponseAdvice implements ResponseBodyAdvice<Object> {
