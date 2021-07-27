@@ -385,4 +385,24 @@ public class DateUtils {
 		}
 		return resultList;
 	}
+	/**
+	 * 获取两个时间节点之间的日期列表
+	 * @param startDate 开始日期
+	 * @param endDate 结束日期
+	 * @return
+	 */
+	public static List<String> getDayBySpace(Date startDate, Date endDate) {
+		List<String> days = new ArrayList<>();
+		Calendar tempStart = Calendar.getInstance();
+		tempStart.setTime(startDate);
+		Calendar tempEnd = Calendar.getInstance();
+		tempEnd.setTime(endDate);
+		// 日期加1(包含结束)
+		tempEnd.add(Calendar.DATE, 0);
+		while (tempStart.before(tempEnd)) {
+			days.add(DateUtils.dateFormat("yyyy-MM-dd", tempStart.getTime()));
+			tempStart.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		return days;
+	}
 }
