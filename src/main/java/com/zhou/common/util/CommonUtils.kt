@@ -1,6 +1,7 @@
 package com.zhou.common.util
 
 import java.math.BigDecimal
+import org.apache.commons.collections4.CollectionUtils
 
 /**
  * @author  周泽
@@ -27,5 +28,6 @@ fun getSum(list: List<BigDecimal>): BigDecimal? = list.fold(BigDecimal.ZERO, Big
  * 转义关键字
  */
 fun tranKeyword(keyword: String) =  keyword.replace("[", "\\[").replace("_", "\\_").replace("%", "\\%")
+
 
 

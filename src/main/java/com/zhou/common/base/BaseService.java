@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhou.common.exception.BusinessException;
+import com.zhou.common.exception.NotFoundException;
 import com.zhou.common.support.aware.WebSupportAware;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ReflectionUtils;
@@ -60,7 +61,7 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseEntity> extends 
         T entity = super.getById(id);
         if (entity == null) {
             String tableName = TableInfoHelper.getTableInfo(entityClass).getTableName();
-            throw new BusinessException(String.format("找不到 id = [ %s ] 对应的资源 %s", id, tableName));
+            throw new NotFoundException(String.format("找不到 id = [ %s ] 对应的资源 %s", id, tableName));
         }
         return entity;
     }

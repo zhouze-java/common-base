@@ -60,6 +60,7 @@ public class SecurityJwtTokenResolver {
             String jwtToken = StringUtils.substringAfter(getHttpServletRequest().getHeader(HttpHeaders.AUTHORIZATION), AUTHORIZATION_PREFIX);
             return Jwts.parserBuilder().setSigningKey(jwtTokenSignKey.getBytes(StandardCharsets.UTF_8)).build().parseClaimsJws(jwtToken).getBody();
         } catch (Exception e) {
+            log.error("当前接口:[{}]", getHttpServletRequest().getContextPath());
             e.printStackTrace();
             throw new UnauthorizedException();
         }
