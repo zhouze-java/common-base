@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * @author 周泽
  * @date Create in 15:02 2020/11/2
- * @Description 导出excel, 不知道为什么不生效,暂时还用老办法,之后再说
+ * @Description 导出excel,
  */
 public class ResponseExcelReturnValueHandler implements HandlerMethodReturnValueHandler, Ordered {
 
