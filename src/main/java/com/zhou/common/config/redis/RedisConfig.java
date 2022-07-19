@@ -64,11 +64,4 @@ public class RedisConfig {
         return new LettuceConnectionFactory(configuration);
     }
 
-    @Bean
-    public DefaultRedisScript<List> redisScript() {
-        DefaultRedisScript<List> redisScript = new DefaultRedisScript<>();
-        redisScript.setResultType(List.class);
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("scripts/getOne.lua")));
-        return redisScript;
-    }
 }

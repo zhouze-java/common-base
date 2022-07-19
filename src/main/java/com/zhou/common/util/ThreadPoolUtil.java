@@ -15,8 +15,8 @@ public enum ThreadPoolUtil implements ThreadPoolCommon {
      * 枚举天生的单例
      */
     INSTANCE {
-        private ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("thread-pool-thread-%d").build();
+        private final ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("thread-pool-thread-%d").build();
+
         private final transient ExecutorService threadPoolExecutor = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5), namedThreadFactory, new ThreadPoolExecutor.CallerRunsPolicy());
 
         @Override
